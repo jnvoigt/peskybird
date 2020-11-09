@@ -31,8 +31,10 @@ func main() {
 
 	handle := database.NewHandle(db)
 	if *doInit {
+		log.Print("Pesky bird setup started")
 		handle.Setup()
 	} else {
+		log.Print("Pesky bird started")
 		err = runBot(handle)
 		if err != nil {
 			log.Fatal(err)

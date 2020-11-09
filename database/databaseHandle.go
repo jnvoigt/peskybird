@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"log"
 	"time"
 )
 
@@ -19,6 +20,8 @@ func (me *Handle) Setup() {
 	setupMap := GetSetupMap()
 
 	for key := range setupMap {
+		log.Print("run setup script: %v", key)
+
 		stmtString := setupMap[key]
 		statement, _ := me.db.Prepare(stmtString)
 		statement.Exec()
