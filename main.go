@@ -16,6 +16,7 @@ import (
 
 func main() {
 	doInit := flag.Bool("init", false, "flag to init bot database")
+	flag.Parse()
 
 	err := godotenv.Load()
 	if err != nil {
