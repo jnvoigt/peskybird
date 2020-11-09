@@ -76,11 +76,17 @@ func (me *Bird) MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageC
 func (me *Bird) printHelp(s *discordgo.Session, m *discordgo.MessageCreate) {
 	var b strings.Builder
 	b.WriteString(fmt.Sprintf("all commands are preceeded with '%v' as command activator", me.activator))
+	b.WriteString("\n")
 	b.WriteString("sayHello")
+	b.WriteString("\n")
 	b.WriteString("\tchecks if pesky is still alive")
+	b.WriteString("\n")
 	b.WriteString("quote")
+	b.WriteString("\n")
 	b.WriteString("\tlists random quote of the current server")
+	b.WriteString("\n")
 	b.WriteString("addquot <content>")
+	b.WriteString("\n")
 	b.WriteString("\tadds <content> to the quote list of this server")
 
 	s.ChannelMessageSend(m.ChannelID, b.String())
