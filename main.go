@@ -48,6 +48,7 @@ func runBot(handle *database.Handle) error {
 	peskyToken := os.Getenv("PESKY_TOKEN")
 	activator := os.Getenv("PESKY_ACTIVATOR")
 
+	log.Printf("started with activator '%v'", activator)
 	pesky := bird.New(activator, handle)
 
 	discord, err := discordgo.New("Bot " + peskyToken)
