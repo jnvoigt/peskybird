@@ -1,9 +1,10 @@
 package bird
 
 import (
+	"fmt"
 	"github.com/bwmarrin/discordgo"
 	"log"
-	rand2 "math/rand"
+	"math/rand"
 	"peskybird/database"
 	"regexp"
 	"strings"
@@ -29,8 +30,13 @@ func (me *Bird) MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageC
 	if strings.HasPrefix(m.Content, me.activator) {
 		command := m.Content[len(me.activator):]
 
+		if command == "help" {
+			me.printHelp(s, m)
+			return
+		}
+
 		if command == "sayHello" {
-			_, err := s.ChannelMessageSend(m.ChannelID, "Hello "+m.Author.Username+", Pesky wants Cooky")
+			_, err := s.ChannelMessageSend(m.ChannelID, "Hello "+m.Author.Username+", Pesky wants a Cooky")
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -43,8 +49,10 @@ func (me *Bird) MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageC
 			if err != nil {
 				log.Fatal(err)
 			} else if len(quotes) > 0 {
-				index := rand2.Int31n(int32(len(quotes)))
+				index := rand.Int31n(int32(len(quotes)))
 				s.ChannelMessageSend(m.ChannelID, quotes[index].Quote)
+			} else {
+				s.ChannelMessageSend(m.ChannelID, "there is nothing to quote!")
 			}
 			return
 		}
@@ -63,4 +71,17 @@ func (me *Bird) MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageC
 			return
 		}
 	}
+}
+
+func (me *Bird) printHelp(s *discordgo.Session, m *discordgo.MessageCreate) {
+	var b strings.Builder
+	b.WriteString(fmt.Sprintf("all commands are preceeded with '%v' as command activator", me.activator))
+	b.WriteString("sayHello")
+	b.WriteString("\tchecks if pesky is still alive")
+	b.WriteString("quote")
+	b.WriteString("\tlists random quote of the current server")
+	b.WriteString("addquot <content>")
+	b.WriteString("\tadds <content> to the quote list of this server")
+
+	s.ChannelMessageSend(m.ChannelID, b.String())
 }
