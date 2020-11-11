@@ -28,14 +28,15 @@ func (me *Bird) MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageC
 	}
 
 	if strings.HasPrefix(m.Content, me.activator) {
-		command := strings.ToLower(m.Content[len(me.activator):])
+		command := m.Content[len(me.activator):]
 
-		if command == "help" {
+		lowerCommand := strings.ToLower(command)
+		if lowerCommand == "help" {
 			me.printHelp(s, m)
 			return
 		}
 
-		if command == "sayhello" {
+		if lowerCommand == "sayhello" {
 			_, err := s.ChannelMessageSend(m.ChannelID, "Hello "+m.Author.Username+", Pesky wants a Cookie")
 			if err != nil {
 				log.Fatal(err)
@@ -44,7 +45,7 @@ func (me *Bird) MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageC
 			return
 		}
 
-		if command == "quote" {
+		if lowerCommand == "quote" {
 			quotes, err := me.handle.GetQuotes(m.GuildID)
 			if err != nil {
 				log.Fatal(err)
@@ -57,7 +58,7 @@ func (me *Bird) MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageC
 			return
 		}
 
-		r := regexp.MustCompile("addquote (.*)")
+		r := regexp.MustCompile("(?i:addquote) (.*)")
 		match := r.FindStringSubmatch(command)
 		if len(match) > 0 {
 			quote := match[1]
