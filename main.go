@@ -69,6 +69,7 @@ func runBot(handle *database.Handle) error {
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, syscall.SIGSEGV, syscall.SIGHUP)
 	<-sc
+	log.Print("shut down bird")
 	return nil
 }
 
