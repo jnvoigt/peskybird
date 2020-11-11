@@ -28,15 +28,15 @@ func (me *Bird) MessageCreateHandler(s *discordgo.Session, m *discordgo.MessageC
 	}
 
 	if strings.HasPrefix(m.Content, me.activator) {
-		command := m.Content[len(me.activator):]
+		command := strings.ToLower(m.Content[len(me.activator):])
 
 		if command == "help" {
 			me.printHelp(s, m)
 			return
 		}
 
-		if command == "sayHello" {
-			_, err := s.ChannelMessageSend(m.ChannelID, "Hello "+m.Author.Username+", Pesky wants a Cooky")
+		if command == "sayhello" {
+			_, err := s.ChannelMessageSend(m.ChannelID, "Hello "+m.Author.Username+", Pesky wants a Cookie")
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -78,7 +78,7 @@ func (me *Bird) printHelp(s *discordgo.Session, m *discordgo.MessageCreate) {
 	b.WriteString("```")
 	b.WriteString(fmt.Sprintf("all commands are preceeded with '%v' as command activator", me.activator))
 	b.WriteString("\n")
-	b.WriteString("sayHello")
+	b.WriteString("sayhello")
 	b.WriteString("\n")
 	b.WriteString("\t- checks if pesky is still alive")
 	b.WriteString("\n")
@@ -86,7 +86,7 @@ func (me *Bird) printHelp(s *discordgo.Session, m *discordgo.MessageCreate) {
 	b.WriteString("\n")
 	b.WriteString("\t- lists random quote of the current server")
 	b.WriteString("\n")
-	b.WriteString("addquot <content>")
+	b.WriteString("addquote <content>")
 	b.WriteString("\n")
 	b.WriteString("\t- adds <content> to the quote list of this server")
 	b.WriteString("```")
