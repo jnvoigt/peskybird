@@ -5,6 +5,7 @@ type MigrationScript struct {
 	script     string
 }
 
+// create this automatic via generate
 func GetMigrationScripts() []MigrationScript {
-	return []MigrationScript{{"setupQuotesSql.sql", setupQuotesSql}}
+	return []MigrationScript{{"20201115_setupQuotes.sql", setupQuotesSql}}
 }

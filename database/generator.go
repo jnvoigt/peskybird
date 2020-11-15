@@ -5,7 +5,7 @@ package database
 //go:generate textFileToGoConst -in scripts/sqliteCheckForMigrations.sql
 //go:generate textFileToGoConst -in scripts/getMigrations.sql
 //go:generate textFileToGoConst -in scripts/addMigration.sql
-//go:generate textFileToGoConst -in scripts/setupQuotes.sql
+//go:generate textFileToGoConst -in scripts/20201115_setupQuotes.sql
 
 // standard operations
 //go:generate textFileToGoConst -in scripts/addQuote.sql
