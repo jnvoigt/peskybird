@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"flag"
 	"github.com/bwmarrin/discordgo"
 	"github.com/joho/godotenv"
 	_ "github.com/mattn/go-sqlite3"
@@ -15,9 +14,6 @@ import (
 )
 
 func main() {
-	doInit := flag.Bool("init", false, "flag to init bot database")
-	flag.Parse()
-
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -31,16 +27,19 @@ func main() {
 	}
 
 	handle := database.NewHandle(db)
-	if *doInit {
-		log.Print("Pesky bird setup started")
-		handle.Setup()
-	} else {
-		log.Print("Pesky bird started")
-		err = runBot(handle)
-		if err != nil {
-			log.Fatal(err)
-			return
-		}
+	log.Print("Pesky bird migration started")
+	err = handle.Migration()
+
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	log.Print("Pesky bird started")
+	err = runBot(handle)
+	if err != nil {
+		log.Fatal(err)
+		return
 	}
 }
 

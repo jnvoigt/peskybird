@@ -1,7 +1,10 @@
 package database
 
-func GetSetupMap() map[string]string {
-	return map[string]string{
-		"quotes": setupQuotesSql,
-	}
+type MigrationScript struct {
+	scriptName string
+	script     string
+}
+
+func GetMigrationScripts() []MigrationScript {
+	return []MigrationScript{{"setupQuotesSql.sql", setupQuotesSql}}
 }

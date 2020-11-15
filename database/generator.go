@@ -1,5 +1,12 @@
 package database
 
-//go:generate textFileToGoConst -in setupQuotes.sql
-//go:generate textFileToGoConst -in addQuote.sql
-//go:generate textFileToGoConst -in getQuotes.sql
+// migration
+//go:generate textFileToGoConst -in scripts/setupMigrations.sql
+//go:generate textFileToGoConst -in scripts/sqliteCheckForMigrations.sql
+//go:generate textFileToGoConst -in scripts/getMigrations.sql
+//go:generate textFileToGoConst -in scripts/addMigration.sql
+//go:generate textFileToGoConst -in scripts/setupQuotes.sql
+
+// standard operations
+//go:generate textFileToGoConst -in scripts/addQuote.sql
+//go:generate textFileToGoConst -in scripts/getQuotes.sql

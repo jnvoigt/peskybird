@@ -1,4 +1,4 @@
-CREATE TABLE Quotes (
+CREATE TABLE if not exists Quotes (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   quote VARCHAR(280),
   server uniqueidentifier,
