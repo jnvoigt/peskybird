@@ -1,4 +1,4 @@
-module peskybird
+module github.com/Baratock/peskybird
 
 go 1.14
 
