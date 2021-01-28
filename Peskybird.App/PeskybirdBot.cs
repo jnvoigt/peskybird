@@ -89,20 +89,18 @@ addquote <content>
             
             if (lowerCommand == "quote")
             {
-                await using (var context = new PeskybirdContext())
-                {
-                    var r = new Random();
-                    var quotes = context.Quotes.AsQueryable().Where(q => q.Server == textChannel.Guild.Id).ToArray();
+                await using var context = new PeskybirdContext();
+                var r = new Random();
+                var quotes = context.Quotes.AsQueryable().Where(q => q.Server == textChannel.Guild.Id).ToArray();
 
-                    if (quotes.Length > 0)
-                    {
-                        var quote = quotes[r.Next(quotes.Length)];
-                        await textChannel.SendMessageAsync(quote.Quote);
-                    }
-                    else
-                    {
-                        await textChannel.SendMessageAsync("There is nothing to quote");
-                    }
+                if (quotes.Length > 0)
+                {
+                    var quote = quotes[r.Next(quotes.Length)];
+                    await textChannel.SendMessageAsync(quote.Quote);
+                }
+                else
+                {
+                    await textChannel.SendMessageAsync("There is nothing to quote");
                 }
 
                 return;
@@ -111,19 +109,17 @@ addquote <content>
             var quoteAddMatch = _quoteAddRegex.Match(command);
             if (quoteAddMatch.Success)
             {
-                await using (var context = new PeskybirdContext())
+                await using var context = new PeskybirdContext();
+                var quote = quoteAddMatch.Groups[1].Value;
+                await context.Quotes.AddAsync(new BotQuote()
                 {
-                    var quote = quoteAddMatch.Groups[1].Value;
-                    await context.Quotes.AddAsync(new BotQuote()
-                    {
-                        Quote = quote,
-                        Server = textChannel.Guild.Id,
-                        User = message.Author.Id,
-                        Time = DateTimeOffset.Now
-                    });
-                    context.SaveChanges();
-                    await textChannel.SendMessageAsync($"added quote: \"{quote}\"");
-                }
+                    Quote = quote,
+                    Server = textChannel.Guild.Id,
+                    User = message.Author.Id,
+                    Time = DateTimeOffset.Now
+                });
+                await context.SaveChangesAsync();
+                await textChannel.SendMessageAsync($"added quote: \"{quote}\"");
             }
             else
             {

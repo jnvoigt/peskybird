@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace Peskybird.App
@@ -9,10 +10,12 @@ namespace Peskybird.App
         
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlite("Data Source=pesky.sqlite");
+            options.UseSqlite("Data Source=pesky.sqlite", x => x.MigrationsAssembly("Peskybird.Migrations"));
         }
     }
 
+    
+    [Table("Quotes")]
     public class BotQuote
     {
         public long Id { get; set; }

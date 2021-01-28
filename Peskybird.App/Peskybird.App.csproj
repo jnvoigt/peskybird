@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="Autofac" Version="6.0.0" />
+      <PackageReference Include="dbup" Version="4.5.0" />
       <PackageReference Include="Discord.Net" Version="2.2.0" />
       <PackageReference Include="dotenv.net" Version="2.1.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
@@ -21,7 +22,10 @@
 
     <ItemGroup>
       <None Remove="Migration\20201115_setupQuotes.sql" />
-      <EmbeddedResource Include="Migrations\20201115_setupQuotes.sql" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Peskybird.Migrations\Peskybird.Migrations.csproj" />
     </ItemGroup>
 
 </Project>
