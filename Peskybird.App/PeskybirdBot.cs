@@ -37,6 +37,38 @@ namespace Peskybird.App
             _helpText = HelpText(_activator);
 
             _client.MessageReceived += OnMessageReceived;
+            _client.UserVoiceStateUpdated += OnVoiceServerStateUpdate;
+        }
+
+        private async Task OnVoiceServerStateUpdate(SocketUser user, SocketVoiceState oldState, SocketVoiceState newState)
+        {
+            var oldChannelId = oldState.VoiceChannel?.Id;
+            var newChannelId = newState.VoiceChannel?.Id;
+
+            if (oldChannelId == newChannelId)
+            {
+                return;
+            }
+
+            if (oldChannelId.HasValue)
+            {
+                await OnChannelLeft(oldState.VoiceChannel);
+            }
+            
+            if (newChannelId.HasValue)
+            {
+                await OnChannelJoin(newState.VoiceChannel);
+            }
+        }
+
+        private async Task OnChannelJoin(SocketVoiceChannel voiceChannel)
+        {
+            Console.WriteLine($"joined {voiceChannel.Name} on {voiceChannel.Guild.Name}");
+        }
+
+        private async Task OnChannelLeft(SocketVoiceChannel voiceChannel)
+        {
+            Console.WriteLine($"left {voiceChannel.Name} on {voiceChannel.Guild.Name}");
         }
 
         private string HelpText(string activator)
