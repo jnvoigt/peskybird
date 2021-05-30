@@ -11,7 +11,7 @@ namespace Peskybird.App
 {
     public class PeskybirdBot
     {
-        private Regex _quoteAddRegex = new("(?i:addquote) (.*)");
+        private readonly Regex _quoteAddRegex = new("(?i:addquote) (.*)");
 
         private readonly ILogger _logger;
         private readonly DiscordSocketClient _client;
@@ -64,11 +64,13 @@ namespace Peskybird.App
         private async Task OnChannelJoin(SocketVoiceChannel voiceChannel)
         {
             Console.WriteLine($"joined {voiceChannel.Name} on {voiceChannel.Guild.Name}");
+            Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
         }
 
         private async Task OnChannelLeft(SocketVoiceChannel voiceChannel)
         {
             Console.WriteLine($"left {voiceChannel.Name} on {voiceChannel.Guild.Name}");
+            Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
         }
 
         private string HelpText(string activator)

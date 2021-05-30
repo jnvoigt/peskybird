@@ -20,7 +20,7 @@ namespace Peskybird.App
     {
         public long Id { get; set; }
         public ulong Server { get; set; }
-        public ulong ChannelGroup { get; set; }
+        public ulong Category { get; set; }
     }
 
 
