@@ -18,6 +18,7 @@ namespace Peskybird.App
         private readonly string _token;
         private readonly string _activator;
         private readonly string _helpText;
+        private readonly Commander _commander;
 
         public PeskybirdBot(IConfiguration configuration, ILogger logger)
         {
@@ -35,9 +36,80 @@ namespace Peskybird.App
             logger.LogInformation($"activator: {_activator}");
 
             _helpText = HelpText(_activator);
-
+            
+            _commander = new Commander();
+            _commander.Add("help", async message =>
+            {
+                var textChannel = message.Channel as SocketTextChannel;
+                if (textChannel != null)
+                {
+                    await textChannel.SendMessageAsync(_helpText);
+                }
+            });          
+            
+            _commander.Add("sayhello", async message =>
+            {
+                var textChannel = message.Channel as SocketTextChannel;
+                if (textChannel != null)
+                {
+                    await textChannel.SendMessageAsync($"Hello {message.Author.Username}, Pesky wants a Cookie");
+                }
+            });
+            
+            _commander.Add("addquote", AddQuote);
+            _commander.Add("quote", Quote);
+            
             _client.MessageReceived += OnMessageReceived;
             _client.UserVoiceStateUpdated += OnVoiceServerStateUpdate;
+        }
+
+        private async Task Quote(IMessage message)
+        {
+            var textChannel = message.Channel as SocketTextChannel;
+            if (textChannel != null)
+            {
+                await using var context = new PeskybirdContext();
+                var r = new Random();
+                var quotes = context.Quotes.AsQueryable().Where(q => q.Server == textChannel.Guild.Id).ToArray();
+
+                if (quotes.Length > 0)
+                {
+                    var quote = quotes[r.Next(quotes.Length)];
+                    await textChannel.SendMessageAsync(quote.Quote);
+                }
+                else
+                {
+                    await textChannel.SendMessageAsync("There is nothing to quote");
+                }
+            }
+
+        }
+
+        private async Task AddQuote(IMessage message)
+        {
+            var textChannel = message.Channel as SocketTextChannel;
+            if (textChannel != null)
+            {
+                
+                var activatorLength = _activator.Length;
+                var command = message.Content.Substring(activatorLength);
+               
+                var quoteAddMatch = _quoteAddRegex.Match(command);
+                if (quoteAddMatch.Success)
+                {
+                    await using var context = new PeskybirdContext();
+                    var quote = quoteAddMatch.Groups[1].Value;
+                    await context.Quotes.AddAsync(new BotQuote()
+                    {
+                        Quote = quote,
+                        Server = textChannel.Guild.Id,
+                        User = message.Author.Id,
+                        Time = DateTimeOffset.Now
+                    });
+                    await context.SaveChangesAsync();
+                    await textChannel.SendMessageAsync($"added quote: \"{quote}\"");
+                }
+            }
         }
 
         private async Task OnVoiceServerStateUpdate(SocketUser user, SocketVoiceState oldState, SocketVoiceState newState)
@@ -65,6 +137,7 @@ namespace Peskybird.App
         {
             Console.WriteLine($"joined {voiceChannel.Name} on {voiceChannel.Guild.Name}");
             Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
+            
         }
 
         private async Task OnChannelLeft(SocketVoiceChannel voiceChannel)
@@ -100,65 +173,27 @@ addquote <content>
             }
 
             var messageContent = message.Content;
-            if (!messageContent.StartsWith(_activator))
+            if (messageContent == null || !messageContent.StartsWith(_activator))
             {
                 return;
             }
 
+            var command = GetCommand(messageContent);
+
+            await _commander.Execute(command, message);
+        }
+
+        private string GetCommand(string messageContent)
+        {
             var activatorLength = _activator.Length;
-            var command = messageContent.Substring(activatorLength);
-            var lowerCommand = command.ToLower();
-
-            if (lowerCommand == "help")
+            var withoutActivator = messageContent.Substring(activatorLength);
+            var splitter = withoutActivator.IndexOf(' ');
+            if (splitter == -1)
             {
-                await textChannel.SendMessageAsync(_helpText);
-                return;
+                return withoutActivator;
             }
-            
-            if (lowerCommand == "sayhello")
-            {
-                await textChannel.SendMessageAsync($"Hello {message.Author.Username}, Pesky wants a Cookie");
-                return;
-            }
-            
-            if (lowerCommand == "quote")
-            {
-                await using var context = new PeskybirdContext();
-                var r = new Random();
-                var quotes = context.Quotes.AsQueryable().Where(q => q.Server == textChannel.Guild.Id).ToArray();
-
-                if (quotes.Length > 0)
-                {
-                    var quote = quotes[r.Next(quotes.Length)];
-                    await textChannel.SendMessageAsync(quote.Quote);
-                }
-                else
-                {
-                    await textChannel.SendMessageAsync("There is nothing to quote");
-                }
-
-                return;
-            }
-
-            var quoteAddMatch = _quoteAddRegex.Match(command);
-            if (quoteAddMatch.Success)
-            {
-                await using var context = new PeskybirdContext();
-                var quote = quoteAddMatch.Groups[1].Value;
-                await context.Quotes.AddAsync(new BotQuote()
-                {
-                    Quote = quote,
-                    Server = textChannel.Guild.Id,
-                    User = message.Author.Id,
-                    Time = DateTimeOffset.Now
-                });
-                await context.SaveChangesAsync();
-                await textChannel.SendMessageAsync($"added quote: \"{quote}\"");
-            }
-            else
-            {
-                await textChannel.SendMessageAsync($"pesky does not know what to do with \"{command}\"");
-            }
+            var command = withoutActivator.Substring(0, splitter);
+            return command;
         }
 
         public async Task RunBot()
@@ -167,4 +202,6 @@ addquote <content>
             await _client.StartAsync();
         }
     }
+    
+    
 }
