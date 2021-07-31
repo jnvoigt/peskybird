@@ -59,8 +59,20 @@ namespace Peskybird.App
             _commander.Add("addquote", AddQuote);
             _commander.Add("quote", Quote);
             
+            _commander.Add("channel", ManageChannel);
+            
             _client.MessageReceived += OnMessageReceived;
             _client.UserVoiceStateUpdated += OnVoiceServerStateUpdate;
+        }
+
+        private async Task ManageChannel(IMessage message)
+        {
+            var textChannel = message.Channel as SocketTextChannel;
+            var user = message.Author as SocketUser;
+            if (textChannel == null)
+            {
+                return;
+            }
         }
 
         private async Task Quote(IMessage message)
