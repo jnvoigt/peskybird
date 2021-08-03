@@ -8,7 +8,7 @@ using Peskybird.App.Services;
 namespace Peskybird.App.Commands
 {
     [Command("channel")]
-    public class ChannelManageCommand: ICommand
+    public class ChannelManageCommand : ICommand
     {
         private readonly PeskybirdContext _context;
         private readonly ICommandHelperService _commandHelperService;
@@ -19,9 +19,10 @@ namespace Peskybird.App.Commands
             _context = context;
             _commandHelperService = commandHelperService;
         }
+
         public async Task Execute(IMessage message)
         {
-                       var textChannel = message.Channel as SocketTextChannel;
+            var textChannel = message.Channel as SocketTextChannel;
             var user = message.Author as SocketUser;
             if (textChannel == null)
             {
@@ -41,7 +42,6 @@ namespace Peskybird.App.Commands
                     if (category == null)
                     {
                         await textChannel.SendMessageAsync($"Group \"{categoryName}\" does not exist");
-
                     }
 
                     var existingConfig = _context.ChannelConfigs.FirstOrDefault(cc => cc.Category == category.Id);
@@ -54,7 +54,7 @@ namespace Peskybird.App.Commands
                             await textChannel.SendMessageAsync($"Group \"{categoryName}\" already managed");
                             return;
                         }
-                        
+
                         await _context.ChannelConfigs.AddAsync(new ChannelConfig()
                         {
                             Server = textChannel.Guild.Id,
@@ -63,9 +63,8 @@ namespace Peskybird.App.Commands
                         await _context.SaveChangesAsync();
                         await textChannel.SendMessageAsync($"Setup group \"{categoryName}\" for management");
                         return;
-
                     }
-                    
+
                     if (operation == "remove")
                     {
                         if (existingConfig != null)
@@ -73,21 +72,20 @@ namespace Peskybird.App.Commands
                             _context.ChannelConfigs.Remove(existingConfig);
                             await _context.SaveChangesAsync();
                             await textChannel.SendMessageAsync($"Group \"{categoryName}\" removed from management");
-                        } 
+                        }
+
                         return;
                     }
 
                     return;
                 }
-                
-                await textChannel.SendMessageAsync("specisify what to do?");
 
+                await textChannel.SendMessageAsync("specisify what to do?");
             }
             else
             {
                 await textChannel.SendMessageAsync("No u dont");
             }
-
         }
     }
 }

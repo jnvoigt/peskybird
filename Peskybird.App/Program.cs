@@ -45,7 +45,8 @@ namespace Peskybird.App
             var assembly = typeof(Program).Assembly;
 
             autofacBuilder.RegisterAssemblyTypes(assembly)
-                .Where(type => type.IsAssignableTo(typeof(ICommand)) && type.GetCustomAttribute<CommandAttribute>() != null)
+                .Where(type =>
+                    type.IsAssignableTo(typeof(ICommand)) && type.GetCustomAttribute<CommandAttribute>() != null)
                 .Named<ICommand>(type => type.GetCustomAttribute<CommandAttribute>()!.Key.ToLower());
 
             autofacBuilder.RegisterAssemblyTypes(assembly)
@@ -59,6 +60,7 @@ namespace Peskybird.App
                 logger.LogError("migration failed");
                 return;
             }
+
             var bot = container.Resolve<PeskybirdBot>();
             await bot.RunBot();
             await Task.Delay(-1);

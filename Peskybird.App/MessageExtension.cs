@@ -14,14 +14,14 @@ namespace Peskybird.App
             {
                 return false;
             }
-            
+
             var guild = textChannel?.Guild;
 
             if (guild == null)
             {
                 return false;
             }
-            
+
             var authorId = message.Author.Id;
             var guildUser = message.Author as SocketGuildUser;
 
@@ -29,7 +29,7 @@ namespace Peskybird.App
             {
                 return true;
             }
-            
+
             return guildUser != null && guildUser.Roles.Any(r => r.Permissions.Administrator);
         }
     }

@@ -11,12 +11,11 @@ namespace Peskybird.App.Services
         {
             _activator = configuration["PESKY_ACTIVATOR"] ?? "!";
         }
-        
+
         public string GetCommand(IMessage message)
         {
             var activatorLength = _activator.Length;
             return message.Content.Substring(activatorLength);
         }
-
     }
 }

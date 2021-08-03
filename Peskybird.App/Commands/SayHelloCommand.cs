@@ -5,7 +5,7 @@ using Discord.WebSocket;
 namespace Peskybird.App.Commands
 {
     [Command("sayhello")]
-    public class SayHelloCommand: ICommand
+    public class SayHelloCommand : ICommand
     {
         public async Task Execute(IMessage message)
         {

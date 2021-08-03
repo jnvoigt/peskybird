@@ -10,13 +10,13 @@ namespace Peskybird.App
 {
     public class PeskybirdBot
     {
-
         private readonly DiscordSocketClient _client;
         private readonly string _token;
         private readonly string _activator;
         private readonly Commander _commander;
 
-        public PeskybirdBot(IConfiguration configuration, ILogger logger, DiscordSocketClient client, Commander commander)
+        public PeskybirdBot(IConfiguration configuration, ILogger logger, DiscordSocketClient client,
+            Commander commander)
         {
             // await using var context = new PeskybirdContext();
             _client = client;
@@ -30,15 +30,16 @@ namespace Peskybird.App
             _activator = configuration["PESKY_ACTIVATOR"] ?? "!";
             logger.LogInformation($"activator: {_activator}");
 
-            
+
             _commander = commander;
 
-            
+
             _client.MessageReceived += OnMessageReceived;
             _client.UserVoiceStateUpdated += OnVoiceServerStateUpdate;
         }
-        
-        private async Task OnVoiceServerStateUpdate(SocketUser user, SocketVoiceState oldState, SocketVoiceState newState)
+
+        private async Task OnVoiceServerStateUpdate(SocketUser user, SocketVoiceState oldState,
+            SocketVoiceState newState)
         {
             var oldChannelId = oldState.VoiceChannel?.Id;
             var newChannelId = newState.VoiceChannel?.Id;
@@ -52,7 +53,7 @@ namespace Peskybird.App
             {
                 await OnChannelLeft(oldState.VoiceChannel);
             }
-            
+
             if (newChannelId.HasValue)
             {
                 await OnChannelJoin(newState.VoiceChannel);
@@ -65,7 +66,6 @@ namespace Peskybird.App
 
             Console.WriteLine($"joined {voiceChannel.Name} on {voiceChannel.Guild.Name}");
             Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
-            
         }
 
         private async Task OnChannelLeft(SocketVoiceChannel voiceChannel)
@@ -79,10 +79,11 @@ namespace Peskybird.App
             {
                 // voiceChannel.
             }
+
             Console.WriteLine($"left {voiceChannel.Name} on {voiceChannel.Guild.Name}");
             Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
         }
-        
+
         private async Task OnMessageReceived(SocketMessage message)
         {
             if (message.Author.IsBot)
@@ -116,6 +117,7 @@ namespace Peskybird.App
             {
                 return withoutActivator;
             }
+
             var command = withoutActivator.Substring(0, splitter);
             return command;
         }
@@ -126,6 +128,4 @@ namespace Peskybird.App
             await _client.StartAsync();
         }
     }
-    
-    
 }

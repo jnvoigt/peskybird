@@ -8,7 +8,7 @@ using Peskybird.App.Services;
 namespace Peskybird.App.Commands
 {
     [Command("addQuote")]
-    public class AddQuoteCommand: ICommand
+    public class AddQuoteCommand : ICommand
     {
         private readonly ICommandHelperService _commandHelperService;
         private readonly Regex _quoteAddRegex = new("(?i:addquote) (.*)");
@@ -24,7 +24,6 @@ namespace Peskybird.App.Commands
         {
             if (message.Channel is SocketTextChannel textChannel)
             {
-                
                 var command = _commandHelperService.GetCommand(message);
 
                 var quoteAddMatch = _quoteAddRegex.Match(command);
@@ -42,7 +41,6 @@ namespace Peskybird.App.Commands
                     await textChannel.SendMessageAsync($"added quote: \"{quote}\"");
                 }
             }
-
         }
     }
 }

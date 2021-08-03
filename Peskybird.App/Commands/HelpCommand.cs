@@ -7,7 +7,7 @@ using Serilog;
 namespace Peskybird.App.Commands
 {
     [Command("help")]
-    public class HelpCommand: ICommand
+    public class HelpCommand : ICommand
     {
         private readonly string _helpText;
 
@@ -16,7 +16,7 @@ namespace Peskybird.App.Commands
             var activator = configuration["PESKY_ACTIVATOR"] ?? "!";
             _helpText = HelpText(activator);
         }
-        
+
         private string HelpText(string activator)
         {
             return @$"```
@@ -30,7 +30,7 @@ addquote <content>
 ```";
         }
 
-        
+
         public async Task Execute(IMessage message)
         {
             if (message.Channel is SocketTextChannel textChannel)

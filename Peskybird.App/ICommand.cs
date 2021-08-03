@@ -8,9 +8,9 @@ namespace Peskybird.App
     {
         Task Execute(IMessage message);
     }
-    
+
     [AttributeUsage(AttributeTargets.Class)]
-    public class CommandAttribute: Attribute
+    public class CommandAttribute : Attribute
     {
         public string Key { get; }
 

@@ -7,8 +7,7 @@ using Discord.WebSocket;
 namespace Peskybird.App.Commands
 {
     [Command("quote")]
-
-    public class QuoteCommand: ICommand
+    public class QuoteCommand : ICommand
     {
         private readonly PeskybirdContext _context;
 
@@ -16,7 +15,7 @@ namespace Peskybird.App.Commands
         {
             _context = context;
         }
-        
+
         public async Task Execute(IMessage message)
         {
             if (message.Channel is SocketTextChannel textChannel)
@@ -34,7 +33,6 @@ namespace Peskybird.App.Commands
                     await textChannel.SendMessageAsync("There is nothing to quote");
                 }
             }
-
         }
     }
 }

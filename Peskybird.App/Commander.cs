@@ -16,7 +16,7 @@ namespace Peskybird.App
         {
             _container = container;
         }
-        
+
         public async Task Execute(string prefix, IMessage message)
         {
             await using var scope = _container.BeginLifetimeScope();
