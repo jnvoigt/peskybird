@@ -1,30 +1,30 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Autofac;
 using Discord;
 using Discord.WebSocket;
+using Microsoft.Extensions.Logging;
 
 namespace Peskybird.App
 {
     public class Commander
     {
-        private Dictionary<string, Func<IMessage, Task>> Commands { get; set; }
-        public Commander()
-        {
-            Commands = new();
-        }
+        private readonly ILifetimeScope _container;
 
-        public void Add(string prefix, Func<IMessage, Task> handle)
+        public Commander(ILifetimeScope container)
         {
-            Commands.Add(prefix, handle);
+            _container = container;
         }
-
+        
         public async Task Execute(string prefix, IMessage message)
         {
-            if (Commands.ContainsKey(prefix.ToLower()))
+            await using var scope = _container.BeginLifetimeScope();
+            var command = scope.ResolveOptionalNamed<ICommand>(prefix.ToLower());
+
+            if (command != null)
             {
-                var command = Commands[prefix];
-                await command(message);
+                await command.Execute(message);
             }
             else
             {
