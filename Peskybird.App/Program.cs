@@ -7,6 +7,7 @@ using Discord.WebSocket;
 using dotenv.net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Peskybird.App.Services;
 using Peskybird.Migrations;
 using Serilog;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -34,7 +35,6 @@ namespace Peskybird.App
             autofacBuilder.RegisterInstance(configuration).As<IConfiguration>();
             autofacBuilder.RegisterInstance(logger).As<ILogger>();
             autofacBuilder.RegisterType<PeskybirdBot>();
-            autofacBuilder.RegisterType<Commander>();
             autofacBuilder.RegisterType<PeskybirdContext>()
                 .InstancePerLifetimeScope()
                 .InstancePerLifetimeScope();

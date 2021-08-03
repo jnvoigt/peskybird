@@ -7,6 +7,7 @@ using Serilog;
 namespace Peskybird.App.Commands
 {
     [Command("help")]
+    // ReSharper disable once UnusedType.Global
     public class HelpCommand : ICommand
     {
         private readonly string _helpText;

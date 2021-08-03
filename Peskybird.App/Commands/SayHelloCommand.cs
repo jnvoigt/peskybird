@@ -5,6 +5,7 @@ using Discord.WebSocket;
 namespace Peskybird.App.Commands
 {
     [Command("sayhello")]
+    // ReSharper disable once UnusedType.Global
     public class SayHelloCommand : ICommand
     {
         public async Task Execute(IMessage message)

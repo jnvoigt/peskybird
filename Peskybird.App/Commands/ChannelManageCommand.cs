@@ -8,6 +8,7 @@ using Peskybird.App.Services;
 namespace Peskybird.App.Commands
 {
     [Command("channel")]
+    // ReSharper disable once UnusedType.Global
     public class ChannelManageCommand : ICommand
     {
         private readonly PeskybirdContext _context;

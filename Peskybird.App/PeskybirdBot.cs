@@ -5,6 +5,7 @@ using Discord;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Peskybird.App.Services;
 
 namespace Peskybird.App
 {
@@ -13,10 +14,10 @@ namespace Peskybird.App
         private readonly DiscordSocketClient _client;
         private readonly string _token;
         private readonly string _activator;
-        private readonly Commander _commander;
+        private readonly ICommanderService _commanderService;
 
         public PeskybirdBot(IConfiguration configuration, ILogger logger, DiscordSocketClient client,
-            Commander commander)
+            ICommanderService commanderService)
         {
             // await using var context = new PeskybirdContext();
             _client = client;
@@ -31,7 +32,7 @@ namespace Peskybird.App
             logger.LogInformation($"activator: {_activator}");
 
 
-            _commander = commander;
+            _commanderService = commanderService;
 
 
             _client.MessageReceived += OnMessageReceived;
@@ -105,7 +106,7 @@ namespace Peskybird.App
 
             var command = GetCommandKey(messageContent);
 
-            await _commander.Execute(command, message);
+            await _commanderService.Execute(command, message);
         }
 
         private string GetCommandKey(string messageContent)

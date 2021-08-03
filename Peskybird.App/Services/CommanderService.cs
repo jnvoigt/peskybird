@@ -1,18 +1,16 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Autofac;
 using Discord;
 using Discord.WebSocket;
-using Microsoft.Extensions.Logging;
 
-namespace Peskybird.App
+namespace Peskybird.App.Services
 {
-    public class Commander
+    // ReSharper disable once UnusedType.Global
+    public class CommanderService : ICommanderService
     {
         private readonly ILifetimeScope _container;
 
-        public Commander(ILifetimeScope container)
+        public CommanderService(ILifetimeScope container)
         {
             _container = container;
         }

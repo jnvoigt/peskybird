@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Peskybird.App.Services
 {
+    // ReSharper disable once UnusedType.Global
     public class CommandHelperService : ICommandHelperService
     {
         private readonly string _activator;
