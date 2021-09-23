@@ -42,48 +42,10 @@ namespace Peskybird.App
         private async Task OnVoiceServerStateUpdate(SocketUser user, SocketVoiceState oldState,
             SocketVoiceState newState)
         {
-            var oldChannelId = oldState.VoiceChannel?.Id;
-            var newChannelId = newState.VoiceChannel?.Id;
-
-            if (oldChannelId == newChannelId)
-            {
-                return;
-            }
-
-            if (oldChannelId.HasValue)
-            {
-                await OnChannelLeft(oldState.VoiceChannel);
-            }
-
-            if (newChannelId.HasValue)
-            {
-                await OnChannelJoin(newState.VoiceChannel);
-            }
+           
         }
 
-        private async Task OnChannelJoin(SocketVoiceChannel voiceChannel)
-        {
-            await using var context = new PeskybirdContext();
 
-            Console.WriteLine($"joined {voiceChannel.Name} on {voiceChannel.Guild.Name}");
-            Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
-        }
-
-        private async Task OnChannelLeft(SocketVoiceChannel voiceChannel)
-        {
-            await using var context = new PeskybirdContext();
-
-            var management = await context.ChannelConfigs.FirstOrDefaultAsync(cc =>
-                cc.Server == voiceChannel.Guild.Id && cc.Category == voiceChannel.CategoryId);
-
-            if (management != null)
-            {
-                // voiceChannel.
-            }
-
-            Console.WriteLine($"left {voiceChannel.Name} on {voiceChannel.Guild.Name}");
-            Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
-        }
 
         private async Task OnMessageReceived(SocketMessage message)
         {

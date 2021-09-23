@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Discord;
+using System;
 using System.Threading.Tasks;
-using Discord;
 
-namespace Peskybird.App
+namespace Peskybird.App.Contract
 {
     public interface ICommand
     {

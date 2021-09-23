@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
@@ -7,13 +6,14 @@ using Discord.WebSocket;
 using dotenv.net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Peskybird.App.Services;
 using Peskybird.Migrations;
 using Serilog;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Peskybird.App
 {
+    using Contract;
+
     public static class Program
     {
         public static async Task Main()
@@ -36,9 +36,9 @@ namespace Peskybird.App
             autofacBuilder.RegisterInstance(logger).As<ILogger>();
             autofacBuilder.RegisterType<PeskybirdBot>();
             autofacBuilder.RegisterType<PeskybirdContext>()
-                .InstancePerLifetimeScope()
                 .InstancePerLifetimeScope();
             autofacBuilder.RegisterType<DiscordSocketClient>()
+                .OwnedByLifetimeScope()
                 .AsSelf()
                 .AsImplementedInterfaces();
 
@@ -48,6 +48,11 @@ namespace Peskybird.App
                 .Where(type =>
                     type.IsAssignableTo(typeof(ICommand)) && type.GetCustomAttribute<CommandAttribute>() != null)
                 .Named<ICommand>(type => type.GetCustomAttribute<CommandAttribute>()!.Key.ToLower());
+
+            autofacBuilder.RegisterAssemblyTypes(assembly)
+                .Where(type => type.IsAssignableTo(typeof(IVoiceStateUpdate)))
+                .As<IVoiceStateUpdate>();
+
 
             autofacBuilder.RegisterAssemblyTypes(assembly)
                 .Where(t => t.Name.EndsWith("Service"))
@@ -64,16 +69,6 @@ namespace Peskybird.App
             var bot = container.Resolve<PeskybirdBot>();
             await bot.RunBot();
             await Task.Delay(-1);
-        }
-    }
-
-    public class Startup
-    {
-        private readonly IConfiguration _configuration;
-
-        public Startup(IConfiguration configuration)
-        {
-            _configuration = configuration;
         }
     }
 }
