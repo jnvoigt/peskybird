@@ -1,13 +1,11 @@
-using System.Threading.Tasks;
-using Autofac;
-using Discord;
-using Discord.WebSocket;
-
 namespace Peskybird.App.Services
 {
+    using Autofac;
     using Contract;
-    using Microsoft.EntityFrameworkCore;
-    using System;
+    using Discord;
+    using Discord.WebSocket;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     // ReSharper disable once UnusedType.Global
     public class CommanderService : ICommanderService
@@ -41,47 +39,13 @@ namespace Peskybird.App.Services
         public async Task OnVoiceServerStateUpdate(SocketUser user, SocketVoiceState oldState,
             SocketVoiceState newState)
         {
-            var oldChannelId = oldState.VoiceChannel?.Id;
-            var newChannelId = newState.VoiceChannel?.Id;
+            await using var scope = _container.BeginLifetimeScope();
+            var voiceStateUpdates = scope.Resolve<IEnumerable<IVoiceStateUpdate>>();
 
-            if (oldChannelId == newChannelId)
+            foreach (var voiceStateUpdate in voiceStateUpdates)
             {
-                return;
+                voiceStateUpdate.OnVoiceServerStateUpdate(user, oldState, newState);
             }
-
-            if (oldChannelId.HasValue)
-            {
-                await OnChannelLeft(oldState.VoiceChannel);
-            }
-
-            if (newChannelId.HasValue)
-            {
-                await OnChannelJoin(newState.VoiceChannel);
-            }
-        }
-        
-        private async Task OnChannelJoin(SocketVoiceChannel voiceChannel)
-        {
-            await using var context = new PeskybirdContext();
-
-            Console.WriteLine($"joined {voiceChannel.Name} on {voiceChannel.Guild.Name}");
-            Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
-        }
-
-        private async Task OnChannelLeft(SocketVoiceChannel voiceChannel)
-        {
-            await using var context = new PeskybirdContext();
-
-            var management = await context.ChannelConfigs.FirstOrDefaultAsync(cc =>
-                cc.Server == voiceChannel.Guild.Id && cc.Category == voiceChannel.CategoryId);
-
-            if (management != null)
-            {
-                // voiceChannel.
-            }
-
-            Console.WriteLine($"left {voiceChannel.Name} on {voiceChannel.Guild.Name}");
-            Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
         }
     }
 }

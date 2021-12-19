@@ -1,17 +1,18 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Discord;
-using Discord.WebSocket;
-using Peskybird.App.Services;
-
-namespace Peskybird.App.Commands
+﻿namespace Peskybird.App.Commands
 {
     using Contract;
+    using Discord;
+    using Discord.WebSocket;
+    using Microsoft.EntityFrameworkCore;
+    using Services;
+    using System;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
 
     [Command("channel")]
     // ReSharper disable once UnusedType.Global
-    public class ChannelManageCommand : ICommand
+    public class ChannelManageCommand : ICommand, IVoiceStateUpdate
     {
         private readonly PeskybirdContext _context;
         private readonly ICommandHelperService _commandHelperService;
@@ -89,6 +90,84 @@ namespace Peskybird.App.Commands
             {
                 await textChannel.SendMessageAsync("No u dont");
             }
+        }
+
+        public async Task OnVoiceServerStateUpdate(SocketUser user, SocketVoiceState oldState, SocketVoiceState newState) {
+            
+        var oldChannelId = oldState.VoiceChannel?.Id;
+            var newChannelId = newState.VoiceChannel?.Id;
+
+            if (oldChannelId == newChannelId)
+            {
+                return;
+            }
+
+            if (oldChannelId.HasValue)
+            {
+                await OnChannelLeft(oldState.VoiceChannel);
+            }
+
+            if (newChannelId.HasValue)
+            {
+                await OnChannelJoin(newState.VoiceChannel);
+            }
+        }
+        
+        private async Task OnChannelJoin(SocketVoiceChannel voiceChannel)
+        {
+            var management = await GetChannelManagement(voiceChannel);
+
+            if (management != null)
+            {
+                // check if there still are empty channels in category
+                var categoryVoicChannels = voiceChannel.Guild.Channels
+                    .Where(channel => channel is SocketVoiceChannel vc && vc.CategoryId == voiceChannel.CategoryId);
+                var emptyVoiceChannelCount = categoryVoicChannels
+                    .Select(channel => channel as SocketVoiceChannel).Count(socketVoiceChannel => socketVoiceChannel?.Users?.Count == 0);
+
+                if (emptyVoiceChannelCount == 0)
+                {
+                    await voiceChannel.Guild.CreateVoiceChannelAsync(Guid.NewGuid().ToString(), properties =>
+                    {
+                        properties.CategoryId = management.Category;
+                    });
+                }
+
+                Console.WriteLine($"joined {voiceChannel.Name} on {voiceChannel.Guild.Name}");
+                Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
+            }
+        }
+
+        private async Task OnChannelLeft(SocketVoiceChannel voiceChannel)
+        {
+
+            var management = await GetChannelManagement(voiceChannel);
+
+            if (management != null)
+            {
+                // check if there still are empty channels in category
+                var categoryVoicChannels = voiceChannel.Guild.Channels
+                    .Where(channel => channel is SocketVoiceChannel vc && vc.CategoryId == voiceChannel.CategoryId);
+                var emptyVoiceChannelCount = categoryVoicChannels
+                    .Select(channel => channel as SocketVoiceChannel).Count(socketVoiceChannel => socketVoiceChannel?.Users?.Count == 0);
+
+                if (emptyVoiceChannelCount > 1)
+                {
+                    await voiceChannel.DeleteAsync();
+                }
+                
+                
+                
+                // voiceChannel.
+                Console.WriteLine($"left {voiceChannel.Name} on {voiceChannel.Guild.Name}");
+                Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
+            }
+        }
+
+        private async Task<ChannelConfig?> GetChannelManagement(SocketVoiceChannel voiceChannel)
+        {
+            return await _context.ChannelConfigs.FirstOrDefaultAsync(cc =>
+                cc.Server == voiceChannel.Guild.Id && cc.Category == voiceChannel.CategoryId);
         }
     }
 }

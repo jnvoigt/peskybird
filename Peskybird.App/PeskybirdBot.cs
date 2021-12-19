@@ -42,7 +42,7 @@ namespace Peskybird.App
         private async Task OnVoiceServerStateUpdate(SocketUser user, SocketVoiceState oldState,
             SocketVoiceState newState)
         {
-           
+            await _commanderService.OnVoiceServerStateUpdate(user, oldState, newState);
         }
 
 
