@@ -6,6 +6,8 @@ using Discord.WebSocket;
 
 namespace Peskybird.App.Commands
 {
+    using Contract;
+
     [Command("quote")]
     // ReSharper disable once UnusedType.Global
     public class QuoteCommand : ICommand

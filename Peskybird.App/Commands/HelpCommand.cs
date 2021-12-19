@@ -6,6 +6,8 @@ using Serilog;
 
 namespace Peskybird.App.Commands
 {
+    using Contract;
+
     [Command("help")]
     // ReSharper disable once UnusedType.Global
     public class HelpCommand : ICommand

@@ -7,6 +7,8 @@ using Peskybird.App.Services;
 
 namespace Peskybird.App.Commands
 {
+    using Contract;
+
     [Command("addQuote")]
     // ReSharper disable once UnusedType.Global
     public class AddQuoteCommand : ICommand
