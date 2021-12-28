@@ -16,12 +16,14 @@
     {
         private readonly PeskybirdContext _context;
         private readonly ICommandHelperService _commandHelperService;
+        private readonly IChannelNameGeneratorService _channelNameGeneratorService;
         private readonly Regex _channelModifyRegex = new("(?i:channel) (add|remove) (.*)");
 
-        public ChannelManageCommand(PeskybirdContext context, ICommandHelperService commandHelperService)
+        public ChannelManageCommand(PeskybirdContext context, ICommandHelperService commandHelperService, IChannelNameGeneratorService channelNameGeneratorService)
         {
             _context = context;
             _commandHelperService = commandHelperService;
+            _channelNameGeneratorService = channelNameGeneratorService;
         }
 
         public async Task Execute(IMessage message)
@@ -120,14 +122,15 @@
             if (management != null)
             {
                 // check if there still are empty channels in category
-                var categoryVoicChannels = voiceChannel.Guild.Channels
-                    .Where(channel => channel is SocketVoiceChannel vc && vc.CategoryId == voiceChannel.CategoryId);
-                var emptyVoiceChannelCount = categoryVoicChannels
+                var categoryVoiceChannels = voiceChannel.Guild.Channels
+                    .Where(channel => channel is SocketVoiceChannel vc && vc.CategoryId == voiceChannel.CategoryId).ToArray();
+                var emptyVoiceChannelCount = categoryVoiceChannels
                     .Select(channel => channel as SocketVoiceChannel).Count(socketVoiceChannel => socketVoiceChannel?.Users?.Count == 0);
 
                 if (emptyVoiceChannelCount == 0)
                 {
-                    await voiceChannel.Guild.CreateVoiceChannelAsync(Guid.NewGuid().ToString(), properties =>
+                    string channelName = _channelNameGeneratorService.GenerateName(categoryVoiceChannels);
+                    await voiceChannel.Guild.CreateVoiceChannelAsync(channelName, properties =>
                     {
                         properties.CategoryId = management.Category;
                     });
