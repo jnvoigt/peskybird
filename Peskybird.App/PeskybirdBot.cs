@@ -11,6 +11,7 @@ namespace Peskybird.App
 {
     public class PeskybirdBot
     {
+        private readonly ILogger _logger;
         private readonly DiscordSocketClient _client;
         private readonly string _token;
         private readonly string _activator;
@@ -20,6 +21,7 @@ namespace Peskybird.App
             ICommanderService commanderService)
         {
             // await using var context = new PeskybirdContext();
+            _logger = logger;
             _client = client;
             _token = configuration["PESKY_TOKEN"];
 
@@ -42,7 +44,15 @@ namespace Peskybird.App
         private async Task OnVoiceServerStateUpdate(SocketUser user, SocketVoiceState oldState,
             SocketVoiceState newState)
         {
-            await _commanderService.OnVoiceServerStateUpdate(user, oldState, newState);
+            try
+            {
+                await _commanderService.OnVoiceServerStateUpdate(user, oldState, newState);
+            }
+            catch (Exception e)
+            {
+                _logger.Log(LogLevel.Error, e.Message);
+                throw;
+            }
         }
 
 
@@ -68,7 +78,15 @@ namespace Peskybird.App
 
             var command = GetCommandKey(messageContent);
 
-            await _commanderService.Execute(command, message);
+            try
+            {
+                await _commanderService.Execute(command, message);
+            }
+            catch (Exception e)
+            {
+                _logger.Log(LogLevel.Error, e.Message);
+                throw;
+            }
         }
 
         private string GetCommandKey(string messageContent)
