@@ -28,7 +28,7 @@ namespace Peskybird.App.Services
                 }
             }
 
-            if (min > 1)
+            if (min > 1 && min < Int32.MaxValue)
             {
                 return $"Voice {min - 1}";
 
