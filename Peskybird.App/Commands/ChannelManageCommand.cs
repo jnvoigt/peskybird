@@ -4,6 +4,7 @@
     using Discord;
     using Discord.WebSocket;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using Services;
     using System;
     using System.Linq;
@@ -17,13 +18,15 @@
         private readonly PeskybirdContext _context;
         private readonly ICommandHelperService _commandHelperService;
         private readonly IChannelNameGeneratorService _channelNameGeneratorService;
+        private readonly ILogger _logger;
         private readonly Regex _channelModifyRegex = new("(?i:channel) (add|remove) (.*)");
 
-        public ChannelManageCommand(PeskybirdContext context, ICommandHelperService commandHelperService, IChannelNameGeneratorService channelNameGeneratorService)
+        public ChannelManageCommand(PeskybirdContext context, ICommandHelperService commandHelperService, IChannelNameGeneratorService channelNameGeneratorService, ILogger logger)
         {
             _context = context;
             _commandHelperService = commandHelperService;
             _channelNameGeneratorService = channelNameGeneratorService;
+            _logger = logger;
         }
 
         public async Task Execute(IMessage message)
@@ -130,14 +133,17 @@
                 if (emptyVoiceChannelCount == 0)
                 {
                     string channelName = _channelNameGeneratorService.GenerateName(categoryVoiceChannels);
+                    
+                    _logger.Log(LogLevel.Information,$"create channel {voiceChannel.Name} in {voiceChannel.Guild.Name}/{voiceChannel.Category?.Name}");
+
                     await voiceChannel.Guild.CreateVoiceChannelAsync(channelName, properties =>
                     {
                         properties.CategoryId = management.Category;
                     });
                 }
 
-                Console.WriteLine($"joined {voiceChannel.Name} on {voiceChannel.Guild.Name}");
-                Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
+                _logger.Log(LogLevel.Information, $"joined {voiceChannel.Name} on {voiceChannel.Guild.Name}");
+                _logger.Log(LogLevel.Information,$"In Category => {voiceChannel.Category?.Name}");
             }
         }
 
@@ -156,14 +162,15 @@
 
                 if (emptyVoiceChannelCount > 1)
                 {
+                    _logger.Log(LogLevel.Information,$"delete channel {voiceChannel.Name} in {voiceChannel.Guild.Name}/{voiceChannel.Category?.Name}");
                     await voiceChannel.DeleteAsync();
                 }
                 
                 
                 
                 // voiceChannel.
-                Console.WriteLine($"left {voiceChannel.Name} on {voiceChannel.Guild.Name}");
-                Console.WriteLine($"In Category => {voiceChannel.Category?.Name}");
+                _logger.Log(LogLevel.Information,$"left {voiceChannel.Name} on {voiceChannel.Guild.Name}");
+                _logger.Log(LogLevel.Information,$"In Category => {voiceChannel.Category?.Name}");
             }
         }
 
