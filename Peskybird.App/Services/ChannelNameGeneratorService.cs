@@ -13,7 +13,8 @@ namespace Peskybird.App.Services
         {
             var numbers = categoryVoiceChannels
                 .Select(channel => _voiceNameRegex.Match(channel.Name))
-                .Where(match => match.Success).Select(match => Convert.ToInt32(match.Groups[1]))
+                .Where(match => match.Success)
+                .Select(match => Convert.ToInt32(match.Groups[1].Value))
                 .OrderBy(n => n);
             
             var track = 1;
