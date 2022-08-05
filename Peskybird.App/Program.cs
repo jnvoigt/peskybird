@@ -13,11 +13,17 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 namespace Peskybird.App
 {
     using Contract;
+    using Discord;
+    using Model;
 
     public static class Program
     {
         public static async Task Main()
         {
+            var socketConfig = new DiscordSocketConfig()
+            {
+                GatewayIntents = GatewayIntents.AllUnprivileged,
+            };
             var serilogLogger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
             var logger = new LoggerFactory().AddSerilog(serilogLogger).CreateLogger("Logging");
 
@@ -32,6 +38,7 @@ namespace Peskybird.App
                 .AddEnvironmentVariables()
                 .Build();
             var autofacBuilder = new ContainerBuilder();
+            autofacBuilder.RegisterInstance(socketConfig);
             autofacBuilder.RegisterInstance(configuration).As<IConfiguration>();
             autofacBuilder.RegisterInstance(logger).As<ILogger>();
             autofacBuilder.RegisterType<PeskybirdBot>();
@@ -65,7 +72,8 @@ namespace Peskybird.App
                 logger.LogError("migration failed");
                 return;
             }
-
+            
+            logger.Log(LogLevel.Information, "time to start bot");
             var bot = container.Resolve<PeskybirdBot>();
             await bot.RunBot();
             await Task.Delay(-1);

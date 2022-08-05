@@ -5,6 +5,7 @@
     using Discord.WebSocket;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
+    using Model;
     using Services;
     using System;
     using System.Linq;

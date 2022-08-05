@@ -8,6 +8,7 @@ using Peskybird.App.Services;
 namespace Peskybird.App.Commands
 {
     using Contract;
+    using Model;
 
     [Command("addQuote")]
     // ReSharper disable once UnusedType.Global

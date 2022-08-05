@@ -36,9 +36,39 @@ namespace Peskybird.App
 
             _commanderService = commanderService;
 
+            _client.Log += message =>
+            {
 
+                if (message.Severity == LogSeverity.Error)
+                {
+                    _logger.LogError(message.Exception.Message + message.Exception.StackTrace);
+                } 
+                
+                if (message.Severity == LogSeverity.Info)
+                {
+                    _logger.LogInformation(message.Message);
+                } 
+                
+                if (message.Severity == LogSeverity.Warning)
+                {
+                    _logger.LogWarning(message.Exception.Message);
+                } 
+                
+                if (message.Severity == LogSeverity.Critical)
+                {
+                    _logger.LogCritical(message.Message);
+                } 
+                return Task.CompletedTask;
+            };
             _client.MessageReceived += OnMessageReceived;
             _client.UserVoiceStateUpdated += OnVoiceServerStateUpdate;
+            _client.UserIsTyping += OnUserTyping;
+        }
+
+        private Task OnUserTyping(Cacheable<IUser, ulong> arg1, Cacheable<IMessageChannel, ulong> arg2)
+        {
+            _logger.Log(LogLevel.Information, "dude is typing");
+            return Task.CompletedTask;
         }
 
         private async Task OnVoiceServerStateUpdate(SocketUser user, SocketVoiceState oldState,
@@ -54,7 +84,6 @@ namespace Peskybird.App
                 throw;
             }
         }
-
 
 
         private async Task OnMessageReceived(SocketMessage message)
@@ -105,7 +134,9 @@ namespace Peskybird.App
 
         public async Task RunBot()
         {
+            _logger.Log(LogLevel.Information, "Start Bot");
             await _client.LoginAsync(TokenType.Bot, _token);
+            _logger.Log(LogLevel.Information, "Started Bot");
             await _client.StartAsync();
         }
     }

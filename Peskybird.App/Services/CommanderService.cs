@@ -4,6 +4,7 @@ namespace Peskybird.App.Services
     using Contract;
     using Discord;
     using Discord.WebSocket;
+    using Microsoft.Extensions.Logging;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -11,10 +12,12 @@ namespace Peskybird.App.Services
     public class CommanderService : ICommanderService
     {
         private readonly ILifetimeScope _container;
+        private readonly ILogger _logger;
 
-        public CommanderService(ILifetimeScope container)
+        public CommanderService(ILifetimeScope container, ILogger logger)
         {
             _container = container;
+            _logger = logger;
         }
 
         public async Task Execute(string prefix, IMessage message)
