@@ -13,23 +13,21 @@ namespace Peskybird.App.Commands
     // ReSharper disable once UnusedType.Global
     public class QuoteCommand : ICommand
     {
-        private readonly PeskybirdContext _context;
+        private readonly QuoteRepository _quoteRepository;
 
-        public QuoteCommand(PeskybirdContext context)
+        public QuoteCommand(QuoteRepository quoteRepository)
         {
-            _context = context;
+            _quoteRepository = quoteRepository;
         }
 
         public async Task Execute(IMessage message)
         {
             if (message.Channel is SocketTextChannel textChannel)
             {
-                var r = new Random();
-                var quotes = _context.Quotes.AsQueryable().Where(q => q.Server == textChannel.Guild.Id).ToArray();
-
-                if (quotes.Length > 0)
+                var quote = await _quoteRepository.GetRandomQuote(textChannel.Guild.Id);
+              
+                if (quote != null)
                 {
-                    var quote = quotes[r.Next(quotes.Length)];
                     await textChannel.SendMessageAsync(quote.Quote);
                 }
                 else

@@ -2,7 +2,7 @@
 
 namespace Peskybird.App.Model;
 
-public class PeskybirdContext : DbContext
+public class PeskybirdDbContext : DbContext
 {
     public DbSet<BotQuote> Quotes { get; set; }
     public DbSet<ChannelConfig> ChannelConfigs { get; set; }

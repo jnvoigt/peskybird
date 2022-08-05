@@ -16,15 +16,15 @@
     // ReSharper disable once UnusedType.Global
     public class ChannelManageCommand : ICommand, IVoiceStateUpdate
     {
-        private readonly PeskybirdContext _context;
+        private readonly PeskybirdDbContext _dbContext;
         private readonly ICommandHelperService _commandHelperService;
         private readonly IChannelNameGeneratorService _channelNameGeneratorService;
         private readonly ILogger _logger;
         private readonly Regex _channelModifyRegex = new("(?i:channel) (add|remove) (.*)");
 
-        public ChannelManageCommand(PeskybirdContext context, ICommandHelperService commandHelperService, IChannelNameGeneratorService channelNameGeneratorService, ILogger logger)
+        public ChannelManageCommand(PeskybirdDbContext dbContext, ICommandHelperService commandHelperService, IChannelNameGeneratorService channelNameGeneratorService, ILogger logger)
         {
-            _context = context;
+            _dbContext = dbContext;
             _commandHelperService = commandHelperService;
             _channelNameGeneratorService = channelNameGeneratorService;
             _logger = logger;
@@ -54,7 +54,7 @@
                         await textChannel.SendMessageAsync($"Group \"{categoryName}\" does not exist");
                     }
 
-                    var existingConfig = _context.ChannelConfigs.FirstOrDefault(cc => cc.Category == category.Id);
+                    var existingConfig = _dbContext.ChannelConfigs.FirstOrDefault(cc => cc.Category == category.Id);
 
                     var operation = match.Groups[1].Value;
                     if (operation == "add")
@@ -65,12 +65,12 @@
                             return;
                         }
 
-                        await _context.ChannelConfigs.AddAsync(new ChannelConfig()
+                        await _dbContext.ChannelConfigs.AddAsync(new ChannelConfig()
                         {
                             Server = textChannel.Guild.Id,
                             Category = category.Id,
                         });
-                        await _context.SaveChangesAsync();
+                        await _dbContext.SaveChangesAsync();
                         await textChannel.SendMessageAsync($"Setup group \"{categoryName}\" for management");
                         return;
                     }
@@ -79,8 +79,8 @@
                     {
                         if (existingConfig != null)
                         {
-                            _context.ChannelConfigs.Remove(existingConfig);
-                            await _context.SaveChangesAsync();
+                            _dbContext.ChannelConfigs.Remove(existingConfig);
+                            await _dbContext.SaveChangesAsync();
                             await textChannel.SendMessageAsync($"Group \"{categoryName}\" removed from management");
                         }
 
@@ -177,7 +177,7 @@
 
         private async Task<ChannelConfig?> GetChannelManagement(SocketVoiceChannel voiceChannel)
         {
-            return await _context.ChannelConfigs.FirstOrDefaultAsync(cc =>
+            return await _dbContext.ChannelConfigs.FirstOrDefaultAsync(cc =>
                 cc.Server == voiceChannel.Guild.Id && cc.Category == voiceChannel.CategoryId);
         }
     }

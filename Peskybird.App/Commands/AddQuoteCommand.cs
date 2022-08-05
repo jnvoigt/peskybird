@@ -14,14 +14,14 @@ namespace Peskybird.App.Commands
     // ReSharper disable once UnusedType.Global
     public class AddQuoteCommand : ICommand
     {
+        private readonly QuoteRepository _quoteRepository;
         private readonly ICommandHelperService _commandHelperService;
         private readonly Regex _quoteAddRegex = new("(?i:addquote) (.*)");
-        private readonly PeskybirdContext _context;
 
-        public AddQuoteCommand(PeskybirdContext context, ICommandHelperService commandHelperService)
+        public AddQuoteCommand(QuoteRepository quoteRepository, ICommandHelperService commandHelperService)
         {
+            _quoteRepository = quoteRepository;
             _commandHelperService = commandHelperService;
-            _context = context;
         }
 
         public async Task Execute(IMessage message)
@@ -34,14 +34,8 @@ namespace Peskybird.App.Commands
                 if (quoteAddMatch.Success)
                 {
                     var quote = quoteAddMatch.Groups[1].Value;
-                    await _context.Quotes.AddAsync(new BotQuote()
-                    {
-                        Quote = quote,
-                        Server = textChannel.Guild.Id,
-                        User = message.Author.Id,
-                        Time = DateTimeOffset.Now
-                    });
-                    await _context.SaveChangesAsync();
+                    await _quoteRepository.AddQuote(new BotQuote() {Quote = quote, Server = textChannel.Guild.Id, User = message.Author.Id, Time = DateTimeOffset.Now});
+
                     await textChannel.SendMessageAsync($"added quote: \"{quote}\"");
                 }
             }

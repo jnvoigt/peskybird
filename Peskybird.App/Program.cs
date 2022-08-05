@@ -42,7 +42,7 @@ namespace Peskybird.App
             autofacBuilder.RegisterInstance(configuration).As<IConfiguration>();
             autofacBuilder.RegisterInstance(logger).As<ILogger>();
             autofacBuilder.RegisterType<PeskybirdBot>();
-            autofacBuilder.RegisterType<PeskybirdContext>()
+            autofacBuilder.RegisterType<PeskybirdDbContext>()
                 .InstancePerLifetimeScope();
             autofacBuilder.RegisterType<DiscordSocketClient>()
                 .OwnedByLifetimeScope()
@@ -59,6 +59,15 @@ namespace Peskybird.App
             autofacBuilder.RegisterAssemblyTypes(assembly)
                 .Where(type => type.IsAssignableTo(typeof(IVoiceStateUpdate)))
                 .As<IVoiceStateUpdate>();
+            autofacBuilder.RegisterAssemblyTypes(assembly)
+                .Where(type => type.Name.EndsWith("DbContext"))
+                .AsSelf()
+                .AsImplementedInterfaces();
+            autofacBuilder.RegisterAssemblyTypes(assembly)
+                .Where(type => type.Name.EndsWith("Repository"))
+                .AsSelf()
+                .AsImplementedInterfaces();
+            
 
 
             autofacBuilder.RegisterAssemblyTypes(assembly)
