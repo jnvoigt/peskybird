@@ -9,6 +9,12 @@ using Peskybird.App.Services;
 
 namespace Peskybird.App
 {
+    using Autofac;
+    using Autofac.Core;
+    using Autofac.Core.Lifetime;
+    using Contract;
+    using System.Collections.Generic;
+
     public class PeskybirdBot
     {
         private readonly ILogger _logger;
@@ -16,14 +22,16 @@ namespace Peskybird.App
         private readonly string _token;
         private readonly string _activator;
         private readonly ICommanderService _commanderService;
+        private readonly IEnumerable<IMessageHandler> _messageHandlers;
 
         public PeskybirdBot(IConfiguration configuration, ILogger logger, DiscordSocketClient client,
-            ICommanderService commanderService)
+            ICommanderService commanderService, IEnumerable<IMessageHandler> messageHandlers)
         {
             // await using var context = new PeskybirdContext();
             _logger = logger;
             _client = client;
             _token = configuration["PESKY_TOKEN"];
+            // _container = container;
 
             if (_token == null)
             {
@@ -35,6 +43,7 @@ namespace Peskybird.App
 
 
             _commanderService = commanderService;
+            _messageHandlers = messageHandlers;
 
             _client.Log += message =>
             {
@@ -51,7 +60,7 @@ namespace Peskybird.App
                 
                 if (message.Severity == LogSeverity.Warning)
                 {
-                    _logger.LogWarning(message.Exception.Message);
+                    _logger.LogWarning(message.Message);
                 } 
                 
                 if (message.Severity == LogSeverity.Critical)
@@ -62,15 +71,8 @@ namespace Peskybird.App
             };
             _client.MessageReceived += OnMessageReceived;
             _client.UserVoiceStateUpdated += OnVoiceServerStateUpdate;
-            _client.UserIsTyping += OnUserTyping;
         }
-
-        private Task OnUserTyping(Cacheable<IUser, ulong> arg1, Cacheable<IMessageChannel, ulong> arg2)
-        {
-            _logger.Log(LogLevel.Information, "dude is typing");
-            return Task.CompletedTask;
-        }
-
+        
         private async Task OnVoiceServerStateUpdate(SocketUser user, SocketVoiceState oldState,
             SocketVoiceState newState)
         {
@@ -100,21 +102,34 @@ namespace Peskybird.App
             }
 
             var messageContent = message.Content;
-            if (messageContent == null || !messageContent.StartsWith(_activator))
+            if (messageContent == null)
             {
                 return;
             }
-
-            var command = GetCommandKey(messageContent);
-
+            
+            if (messageContent.StartsWith(_activator))
+            {
+                var command = GetCommandKey(messageContent);
+                try
+                {
+                    await _commanderService.Execute(command, message);
+                }
+                catch (Exception e)
+                {
+                    _logger.Log(LogLevel.Error, e.ToString());
+                }
+            }
+            
             try
             {
-                await _commanderService.Execute(command, message);
+                foreach (var handler in _messageHandlers)
+                {
+                    await handler.Execute(message);
+                }
             }
             catch (Exception e)
             {
                 _logger.Log(LogLevel.Error, e.Message);
-                throw;
             }
         }
 

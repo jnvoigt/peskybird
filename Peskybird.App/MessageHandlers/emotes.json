@@ -1,0 +1,74 @@
+﻿[
+  {
+    "emote": ":apple:",
+    "keywords": ["apfel", "apple"]
+  },
+  {
+    "emote": ":banana:",
+    "keywords": [
+      "banane",
+      "banana"
+    ]
+  },
+  {
+    "emote": ":bread:",
+    "keywords": [
+      "brot",
+      "bread"
+    ]
+  },
+  {
+    "emote": ":burger:",
+    "keywords": [
+      "burger"
+    ]
+  },
+  {
+    "emote": ":cake:",
+    "keywords": ["cake", "kuchen", "torte"]
+  },
+  {
+    "emote": ":cheese:",
+    "keywords": ["cheese", "käse"]
+  },
+  {
+  "emote": ":cucumber:",
+  "keywords": [
+    "cucumber",
+    "gurke",
+    "gürkchen"
+  ]
+},
+  {
+    "emote": ":french_bread:",
+    "keywords": [
+      "brot",
+      "baguette"
+    ]
+  },
+  {
+    "emote": ":sandwich:",
+    "keywords": [
+      "sandwich"
+    ]
+  },
+  {
+    "emote": ":tomato:",
+    "keywords": [
+      "tomato",
+      "tomate"
+    ]
+  },
+  {
+    "emote": ":salt:",
+    "keywords": [
+      "salt",
+      "salz",
+      "league of legends",
+      "leagueoflegends",
+      "valorant",
+      "riotgames",
+      "riot games"
+    ]
+  }
+ ]

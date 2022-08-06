@@ -30,4 +30,9 @@
       <ProjectReference Include="..\Peskybird.Migrations\Peskybird.Migrations.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="MessageHandlers\emotes.json" />
+      <EmbeddedResource Include="MessageHandlers\emotes.json" />
+    </ItemGroup>
+
 </Project>

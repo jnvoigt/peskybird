@@ -20,10 +20,7 @@ namespace Peskybird.App
     {
         public static async Task Main()
         {
-            var socketConfig = new DiscordSocketConfig()
-            {
-                GatewayIntents = GatewayIntents.AllUnprivileged,
-            };
+            var socketConfig = new DiscordSocketConfig() {GatewayIntents = GatewayIntents.AllUnprivileged,};
             var serilogLogger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
             var logger = new LoggerFactory().AddSerilog(serilogLogger).CreateLogger("Logging");
 
@@ -41,7 +38,7 @@ namespace Peskybird.App
             autofacBuilder.RegisterInstance(socketConfig);
             autofacBuilder.RegisterInstance(configuration).As<IConfiguration>();
             autofacBuilder.RegisterInstance(logger).As<ILogger>();
-            autofacBuilder.RegisterType<PeskybirdBot>();
+            autofacBuilder.RegisterType<PeskybirdBot>().OwnedByLifetimeScope();
             autofacBuilder.RegisterType<PeskybirdDbContext>()
                 .InstancePerLifetimeScope();
             autofacBuilder.RegisterType<DiscordSocketClient>()
@@ -56,6 +53,11 @@ namespace Peskybird.App
                     type.IsAssignableTo(typeof(ICommand)) && type.GetCustomAttribute<CommandAttribute>() != null)
                 .Named<ICommand>(type => type.GetCustomAttribute<CommandAttribute>()!.Key.ToLower());
 
+            autofacBuilder.RegisterAssemblyTypes(assembly).Where(type => type.IsAssignableTo(typeof(IMessageHandler)))
+                .InstancePerLifetimeScope()
+                .AsSelf()
+                .AsImplementedInterfaces();
+
             autofacBuilder.RegisterAssemblyTypes(assembly)
                 .Where(type => type.IsAssignableTo(typeof(IVoiceStateUpdate)))
                 .As<IVoiceStateUpdate>();
@@ -67,7 +69,6 @@ namespace Peskybird.App
                 .Where(type => type.Name.EndsWith("Repository"))
                 .AsSelf()
                 .AsImplementedInterfaces();
-            
 
 
             autofacBuilder.RegisterAssemblyTypes(assembly)
@@ -81,7 +82,7 @@ namespace Peskybird.App
                 logger.LogError("migration failed");
                 return;
             }
-            
+
             logger.Log(LogLevel.Information, "time to start bot");
             var bot = container.Resolve<PeskybirdBot>();
             await bot.RunBot();
