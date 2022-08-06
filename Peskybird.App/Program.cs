@@ -74,6 +74,11 @@ namespace Peskybird.App
             autofacBuilder.RegisterAssemblyTypes(assembly)
                 .Where(t => t.Name.EndsWith("Service"))
                 .AsImplementedInterfaces();
+            
+            autofacBuilder.RegisterAssemblyTypes(assembly)
+                .Where(t => t.Name.EndsWith("Singleton"))
+                .SingleInstance()
+                .AsImplementedInterfaces();
 
             await using var container = autofacBuilder.Build();
             var wasSuccessful = Migrator.Migrate();

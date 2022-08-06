@@ -3,7 +3,7 @@
 using MessageHandlers;
 using System.Collections.Generic;
 
-public interface IEmoteDefinitionService
+public interface IEmoteDefinitionSingleton
 {
     IEnumerable<EmoteDefinition> GetPredefinedEmotes();
 }

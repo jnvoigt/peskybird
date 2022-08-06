@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 [Command("dumpreactions")]
 public class DumpReactionsCommand: ICommand
 {
-    private readonly IEmoteDefinitionService _emoteDefinitionService;
+    private readonly IEmoteDefinitionSingleton _emoteDefinitionSingleton;
 
-    public DumpReactionsCommand(IEmoteDefinitionService emoteDefinitionService)
+    public DumpReactionsCommand(IEmoteDefinitionSingleton emoteDefinitionSingleton)
     {
-        _emoteDefinitionService = emoteDefinitionService;
+        _emoteDefinitionSingleton = emoteDefinitionSingleton;
     }
     public async Task Execute(IMessage message)
     {
@@ -28,7 +28,7 @@ public class DumpReactionsCommand: ICommand
 
         if (message.AuthorIsAdmin())
         {
-            var groupedEmotes = _emoteDefinitionService.GetPredefinedEmotes()
+            var groupedEmotes = _emoteDefinitionSingleton.GetPredefinedEmotes()
                 .Select((d, i) => (d, i))
                 .GroupBy((def) => def.i / pagesize + 1, tuple => tuple.d).ToArray();
             var count = groupedEmotes.Length;

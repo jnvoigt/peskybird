@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-public class EmoteDefinitionService : IEmoteDefinitionService
+public class EmoteDefinitionSingleton : IEmoteDefinitionSingleton
 {
     private readonly Lazy<IEnumerable<EmoteDefinition>>_emoteDefinitions = new(LoadEmoteDefinitions);
 
@@ -15,7 +15,7 @@ public class EmoteDefinitionService : IEmoteDefinitionService
     {
         var assembly = typeof(KeyWordReactionMessageHandler).Assembly;
 
-        using var stream = assembly.GetManifestResourceStream(typeof(EmoteDefinitionService).Namespace + ".emotes.json");
+        using var stream = assembly.GetManifestResourceStream(typeof(EmoteDefinitionSingleton).Namespace + ".emotes.json");
         using var streamReader = new StreamReader(stream!);
         using var jsonReader = new JsonTextReader(streamReader);
 

@@ -2,6 +2,7 @@
 
 using Contract;
 using Discord;
+using Discord.Rest;
 using Discord.WebSocket;
 using Microsoft.Extensions.Logging;
 using Services;
@@ -11,12 +12,12 @@ using System.Threading.Tasks;
 
 public class KeyWordReactionMessageHandler : IMessageHandler
 {
-    private readonly IEmoteDefinitionService _emoteDefinitionService;
+    private readonly IEmoteDefinitionSingleton _emoteDefinitionSingleton;
     private readonly ILogger _logger;
 
-    public KeyWordReactionMessageHandler(IEmoteDefinitionService emoteDefinitionService, ILogger logger)
+    public KeyWordReactionMessageHandler(IEmoteDefinitionSingleton emoteDefinitionSingleton, ILogger logger)
     {
-        _emoteDefinitionService = emoteDefinitionService;
+        _emoteDefinitionSingleton = emoteDefinitionSingleton;
         _logger = logger;
     }
 
@@ -38,7 +39,7 @@ public class KeyWordReactionMessageHandler : IMessageHandler
     {
         if (message.Channel is SocketTextChannel textChannel && message is SocketMessage restUserMessage)
         {
-            var scanners = BuildEmoteScanner(_emoteDefinitionService.GetPredefinedEmotes()).ToArray();
+            var scanners = BuildEmoteScanner(_emoteDefinitionSingleton.GetPredefinedEmotes()).ToArray();
             foreach (var c in message.Content)
             {
                 foreach (var emoteScanner in scanners)
