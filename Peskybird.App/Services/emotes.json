@@ -114,7 +114,8 @@
     "emote": ":birthday:",
     "keywords": [
       "birthday",
-      "geburtstag"
+      "geburtstag",
+      "torte"
     ]
   },
   {
@@ -897,8 +898,7 @@
     "emote": ":poultry_leg:",
     "keywords": [
       "poultry leg",
-      "chickenwings",
-      "chicken wings",
+      "hühnerbein"
     ]
   },
   {
@@ -965,7 +965,10 @@
     ],
     "emote": ":salad:",
     "keywords": [
-      "salad"
+      "salad",
+      "salat",
+      "karnickelfutter",
+      "kaninchenfutter"
     ]
   },
   {
