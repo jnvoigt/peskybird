@@ -32,7 +32,10 @@
 
     <ItemGroup>
       <None Remove="MessageHandlers\emotes.json" />
-      <EmbeddedResource Include="MessageHandlers\emotes.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Services\emotes.json" />
     </ItemGroup>
 
 </Project>
