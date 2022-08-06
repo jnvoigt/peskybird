@@ -26,10 +26,10 @@ namespace Peskybird.App.Commands
 
         public async Task Execute(IMessage message)
         {
+            
             if (message.Channel is SocketTextChannel textChannel)
             {
                 var command = _commandHelperService.GetCommand(message);
-
                 var quoteAddMatch = _quoteAddRegex.Match(command);
                 if (quoteAddMatch.Success)
                 {

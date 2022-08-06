@@ -1,65 +1,977 @@
 ﻿[
   {
+    "tags": [
+      "food"
+    ],
     "emote": ":apple:",
-    "keywords": ["apfel", "apple"]
+    "keywords": [
+      "apple",
+      "apfel"
+    ]
   },
   {
+    "tags": [
+      "food"
+    ],
+    "emote": ":avocado:",
+    "keywords": [
+      "avocado"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":baby_bottle:",
+    "keywords": [
+      "baby bottle"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":bacon:",
+    "keywords": [
+      "bacon",
+      "speck"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":bagel:",
+    "keywords": [
+      "bagel"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
     "emote": ":banana:",
     "keywords": [
-      "banane",
-      "banana"
+      "banana",
+      "banane"
     ]
   },
   {
+    "tags": [
+      "food"
+    ],
+    "emote": ":beer:",
+    "keywords": [
+      "beer",
+      "bier",
+      "druckbetankung"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":beers:",
+    "keywords": [
+      "beers",
+      "bier",
+      "druckbetankung"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":bell_pepper:",
+    "keywords": [
+      "bell pepper",
+      "paprika"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":bento:",
+    "keywords": [
+      "bento"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":beverage_box:",
+    "keywords": [
+      "beverage box",
+      "saftpappe"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":birthday:",
+    "keywords": [
+      "birthday",
+      "geburtstag"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":blueberries:",
+    "keywords": [
+      "blueberries",
+      "blaubeere"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":bowl_with_spoon:",
+    "keywords": [
+      "bowl with spoon"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
     "emote": ":bread:",
     "keywords": [
-      "brot",
-      "bread"
+      "bread",
+      "brot"
     ]
   },
   {
-    "emote": ":burger:",
+    "tags": [
+      "food"
+    ],
+    "emote": ":broccoli:",
     "keywords": [
-      "burger"
+      "broccoli",
+      "brokkoli"
     ]
   },
   {
+    "tags": [
+      "food"
+    ],
+    "emote": ":bubble_tea:",
+    "keywords": [
+      "bubble tea",
+      "bubbletea"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":burrito:",
+    "keywords": [
+      "burrito"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":butter:",
+    "keywords": [
+      "butter"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
     "emote": ":cake:",
-    "keywords": ["cake", "kuchen", "torte"]
+    "keywords": [
+      "cake",
+      "kuchen",
+      "torte"
+    ]
   },
   {
+    "tags": [
+      "food"
+    ],
+    "emote": ":candy:",
+    "keywords": [
+      "candy",
+      "bonbon"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":canned_food:",
+    "keywords": [
+      "canned food",
+      "konserven",
+      "dosenfutter"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":carrot:",
+    "keywords": [
+      "carrot",
+      "karotte",
+      "mohrrübe",
+      "möhre"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":champagne:",
+    "keywords": [
+      "champagne",
+      "champagna"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":champagne_glass:",
+    "keywords": [
+      "champagne glass",
+      "druckbetankung"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
     "emote": ":cheese:",
-    "keywords": ["cheese", "käse"]
+    "keywords": [
+      "cheese",
+      "käse",
+      "fromage"
+    ]
   },
   {
-  "emote": ":cucumber:",
-  "keywords": [
-    "cucumber",
-    "gurke",
-    "gürkchen"
-  ]
-},
+    "tags": [
+      "food"
+    ],
+    "emote": ":cherries:",
+    "keywords": [
+      "cherries",
+      "kirsche"
+    ]
+  },
   {
+    "tags": [
+      "food"
+    ],
+    "emote": ":chestnut:",
+    "keywords": [
+      "chestnut"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":chocolate_bar:",
+    "keywords": [
+      "chocolate bar",
+      "schokolade"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":chopsticks:",
+    "keywords": [
+      "chopsticks",
+      "stäbchen"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":cocktail:",
+    "keywords": [
+      "cocktail",
+      "druckbetankung"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":coconut:",
+    "keywords": [
+      "coconut",
+      "kokusnuss"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":coffee:",
+    "keywords": [
+      "coffee",
+      "kaffee",
+      "nasse erde"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":cookie:",
+    "keywords": [
+      "cookie",
+      "cooky",
+      "keks"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":cooking:",
+    "keywords": [
+      "cooking",
+      "spiegelei"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":corn:",
+    "keywords": [
+      "corn",
+      "mais"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":croissant:",
+    "keywords": [
+      "croissant"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":cucumber:",
+    "keywords": [
+      "cucumber",
+      "gurke",
+      "gürkchen"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":cup_with_straw:",
+    "keywords": [
+      "cup with straw",
+      "trinken"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":cupcake:",
+    "keywords": [
+      "cupcake",
+      "muffin"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":curry:",
+    "keywords": [
+      "curry"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":custard:",
+    "keywords": [
+      "custard"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":cut_of_meat:",
+    "keywords": [
+      "cut of meat",
+      "steak"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":dango:",
+    "keywords": [
+      "dango"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":doughnut:",
+    "keywords": [
+      "doughnut",
+      "donut"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":dumpling:",
+    "keywords": [
+      "dumpling",
+      "teigtasche"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":egg:",
+    "keywords": [
+      "egg"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":eggplant:",
+    "keywords": [
+      "eggplant","augergine"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":falafel:",
+    "keywords": [
+      "falafel"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":fish_cake:",
+    "keywords": [
+      "fish cake"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":flatbread:",
+    "keywords": [
+      "flatbread","fladen"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":fondue:",
+    "keywords": [
+      "fondue"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":fork_and_knife:",
+    "keywords": [
+      "fork and knife"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":fork_knife_plate:",
+    "keywords": [
+      "fork knife plate"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":fortune_cookie:",
+    "keywords": [
+      "fortune cookie"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
     "emote": ":french_bread:",
     "keywords": [
+      "french bread",
       "brot",
       "baguette"
     ]
   },
   {
-    "emote": ":sandwich:",
+    "tags": [
+      "food"
+    ],
+    "emote": ":fried_shrimp:",
     "keywords": [
-      "sandwich"
+      "fried shrimp",
+      "frittierte garnelen"
     ]
   },
   {
-    "emote": ":tomato:",
+    "tags": [
+      "food"
+    ],
+    "emote": ":fries:",
     "keywords": [
-      "tomato",
-      "tomate"
+      "fries",
+      "pommes"
     ]
   },
   {
+    "tags": [
+      "food"
+    ],
+    "emote": ":garlic:",
+    "keywords": [
+      "garlic",
+      "knoblauch",
+      "knofi"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":grapes:",
+    "keywords": [
+      "grapes",
+      "trauben"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":green_apple:",
+    "keywords": [
+      "green apple",
+      "apfel",
+      "apple"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":hamburger:",
+    "keywords": [
+      "hamburger",
+      "burger"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":honey_pot:",
+    "keywords": [
+      "honey pot",
+      "honig"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":hot_pepper:",
+    "keywords": [
+      "hot pepper",
+      "chilli"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":hotdog:",
+    "keywords": [
+      "hotdog"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":ice_cream:",
+    "keywords": [
+      "ice cream",
+      "ice creme",
+      "eis creme"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":ice_cube:",
+    "keywords": [
+      "ice cube"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":icecream:",
+    "keywords": [
+      "icecream"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":kiwi:",
+    "keywords": [
+      "kiwi"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":leafy_green:",
+    "keywords": [
+      "leafy green"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":lemon:",
+    "keywords": [
+      "lemon",
+      "zitrone"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":lollipop:",
+    "keywords": [
+      "lollipop",
+      "lolli"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":mango:",
+    "keywords": [
+      "mango"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":mate:",
+    "keywords": [
+      "mate"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":meat_on_bone:",
+    "keywords": [
+      "meat on bone",
+      "fleisch"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":melon:",
+    "keywords": [
+      "melon",
+      "Honigmelone"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":milk:",
+    "keywords": [
+      "milk",
+      "milch",
+      "millich"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":moon_cake:",
+    "keywords": [
+      "moon cake"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":oden:",
+    "keywords": [
+      "oden"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":olive:",
+    "keywords": [
+      "olive"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":onion:",
+    "keywords": [
+      "onion",
+      "zwiebel"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":oyster:",
+    "keywords": [
+      "oyster"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":pancakes:",
+    "keywords": [
+      "pancakes",
+      "pfannkuchen"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":peach:",
+    "keywords": [
+      "peach",
+      "pfirsich"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":peanuts:",
+    "keywords": [
+      "peanuts",
+      "erdnuss",
+      "erdnüsse"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":pear:",
+    "keywords": [
+      "pear",
+      "birne"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":pie:",
+    "keywords": [
+      "pie"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":pineapple:",
+    "keywords": [
+      "pineapple",
+      "ananas"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":pizza:",
+    "keywords": [
+      "pizza"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":popcorn:",
+    "keywords": [
+      "popcorn"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":potato:",
+    "keywords": [
+      "potato",
+      "kartoffel"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":poultry_leg:",
+    "keywords": [
+      "poultry leg",
+      "chickenwings",
+      "chicken wings",
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":pretzel:",
+    "keywords": [
+      "pretzel",
+      "bretze",
+      "breze"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":ramen:",
+    "keywords": [
+      "ramen"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":rice:",
+    "keywords": [
+      "rice",
+      "reis"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":rice_ball:",
+    "keywords": [
+      "rice ball",
+      "reisbällchen"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":rice_cracker:",
+    "keywords": [
+      "rice cracker"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":sake:",
+    "keywords": [
+      "sake"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":salad:",
+    "keywords": [
+      "salad"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
     "emote": ":salt:",
     "keywords": [
       "salt",
@@ -70,5 +982,221 @@
       "riotgames",
       "riot games"
     ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":sandwich:",
+    "keywords": [
+      "sandwich"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":shallow_pan_of_food:",
+    "keywords": [
+      "shallow pan of food"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":shaved_ice:",
+    "keywords": [
+      "shaved ice"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":spaghetti:",
+    "keywords": [
+      "spaghetti",
+      "nudeln"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":spoon:",
+    "keywords": [
+      "spoon",
+      "löffel"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":stew:",
+    "keywords": [
+      "stew",
+      "suppe"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":strawberry:",
+    "keywords": [
+      "strawberry",
+      "erdbeere"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":stuffed_flatbread:",
+    "keywords": [
+      "stuffed flatbread",
+      "döner"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":sushi:",
+    "keywords": [
+      "sushi"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":sweet_potato:",
+    "keywords": [
+      "sweet potato",
+      "süßkartoffel"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":taco:",
+    "keywords": [
+      "taco"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":takeout_box:",
+    "keywords": [
+      "takeout box",
+      "lieferando"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":tamale:",
+    "keywords": [
+      "tamale"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":tangerine:",
+    "keywords": [
+      "tangerine"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":tea:",
+    "keywords": [
+      "tea",
+      "tee"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":teapot:",
+    "keywords": [
+      "teapot",
+      "teekanne"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":tomato:",
+    "keywords": [
+      "tomato",
+      "tomate"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":tropical_drink:",
+    "keywords": [
+      "tropical drink",
+      "druckbetankung"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":tumbler_glass:",
+    "keywords": [
+      "tumbler glass",
+      "whisky",
+      "whiskey",
+      "druckbetankung"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":waffle:",
+    "keywords": [
+      "waffle",
+      "waffel"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":watermelon:",
+    "keywords": [
+      "watermelon",
+      "wassermelone"
+    ]
+  },
+  {
+    "tags": [
+      "food"
+    ],
+    "emote": ":wine_glass:",
+    "keywords": [
+      "wine glass",
+      "weinglas",
+      "druckbetankung"
+    ]
   }
- ]
+]
