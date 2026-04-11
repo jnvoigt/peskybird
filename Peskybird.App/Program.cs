@@ -20,7 +20,7 @@ namespace Peskybird.App
     {
         public static async Task Main()
         {
-            var socketConfig = new DiscordSocketConfig() {GatewayIntents = GatewayIntents.AllUnprivileged,};
+            var socketConfig = new DiscordSocketConfig() {GatewayIntents = GatewayIntents.MessageContent | GatewayIntents.AllUnprivileged,};
             var serilogLogger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
             var logger = new LoggerFactory().AddSerilog(serilogLogger).CreateLogger("Logging");
 
@@ -34,7 +34,7 @@ namespace Peskybird.App
             var configuration = new ConfigurationBuilder()
                 .AddEnvironmentVariables()
                 .Build();
-            var autofacBuilder = new ContainerBuilder();
+            var autofacBuilder = new Autofac.ContainerBuilder();
             autofacBuilder.RegisterInstance(socketConfig);
             autofacBuilder.RegisterInstance(configuration).As<IConfiguration>();
             autofacBuilder.RegisterInstance(logger).As<ILogger>();
@@ -45,7 +45,7 @@ namespace Peskybird.App
                 .OwnedByLifetimeScope()
                 .AsSelf()
                 .AsImplementedInterfaces();
-
+            
             var assembly = typeof(Program).Assembly;
 
             autofacBuilder.RegisterAssemblyTypes(assembly)
