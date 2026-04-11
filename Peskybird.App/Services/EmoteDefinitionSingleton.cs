@@ -15,7 +15,7 @@ public class EmoteDefinitionSingleton : IEmoteDefinitionSingleton
     {
         var assembly = typeof(KeyWordReactionMessageHandler).Assembly;
 
-        using var stream = assembly.GetManifestResourceStream(typeof(EmoteDefinitionSingleton).Namespace + ".emotes.json");
+        using var stream = assembly.GetManifestResourceStream("emotes_manifest");
         using var streamReader = new StreamReader(stream!);
         using var jsonReader = new JsonTextReader(streamReader);
 
